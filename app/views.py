@@ -9,6 +9,7 @@ from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.utils import secure_filename
 from app.forms import UploadForm
+from flask import send_from_directory
 
 
 ###
@@ -70,6 +71,32 @@ def logout():
     flash('You were logged out', 'success')
     return redirect(url_for('home'))
 
+
+
+def get_uploaded_images():
+
+    rootdir = os.getcwd()
+    imageList = []
+    for subdir, dirs, files in os.walk(rootdir + '/uploads'):
+        for file in files:
+            imageList.append(file)
+    
+    return imageList
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
+
+@app.route('/files')
+def files():   
+    if not session.get('logged_in'):
+        abort(401)
+
+        
+    imageList = get_uploaded_images()
+
+    return render_template('files.html', imageList=imageList)
 
 
 
