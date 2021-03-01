@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
 {% block main %}
+
+<div class ="boximages">
 {%  for image in imageList %}
 
-<img src = "{{ url_for('get_image', filename=image) }}" />
+
+    <img src = "{{ url_for('get_image', filename=image) }}" />
+
+
 
 {% endfor %}
-
+</div>
 
 
 

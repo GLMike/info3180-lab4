@@ -1,3 +1,14 @@
 body {
     padding-top: 5rem;
 }
+
+.boximages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+img {
+    margin: 1px;
+    width: auto;
+    height: 150px;
+}
